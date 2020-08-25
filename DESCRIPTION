@@ -1,0 +1,15 @@
+Package: modelfitr
+Type: Package
+Title: Toolbox to fit models to data
+Version: 0.0.1
+Author: Gary Kane
+Maintainer: Gary Kane <gakane@bu.edu>
+Description: Model fitting toolbox: wrapper around R optimization tools to conveniently 
+    fit models to data using a number of different methods.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1
+Imports: 
+    optimx,
+    matrixcalc
