@@ -11,7 +11,7 @@
 #' @param ... further arguments passed to fit_optimx, run_optimx, optimx, and objective
 #'
 #' @export
-fit_model <- function(objective, start = NULL, method = "Nelder-Mead", aic = T, bic = F, n_obs = NULL, ...) {
+fit_model <- function(objective, start = NULL, method = "Nelder-Mead", aic = T, bic = F, n_obs = NULL, as_data_frame = F, ...) {
   optimx_methods <- c(
     "Nelder-Mead",
     "BFGS",
@@ -48,5 +48,12 @@ fit_model <- function(objective, start = NULL, method = "Nelder-Mead", aic = T, 
     }
   }
 
-  return(fit)
+  if (as_data_frame) {
+    fit_data <- data.frame(as.list(fit$pars), value = fit$value)
+    if ("aic" %in% names(fit)) fit_data$aic <- fit$aic
+    if ("bic" %in% names(fit)) fit_data$bic <- fit$bic
+    return(fit_data)
+  } else {
+    return(fit)
+  }
 }

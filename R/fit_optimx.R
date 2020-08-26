@@ -19,9 +19,9 @@ fit_optimx <- function(objective, start, max_runs = 5L, consecutive = 0L, sigma 
 
   fit <- run_optimx(objective, start, ...)
   if (!is.null(fit$hess)) {
-      if (matrixcalc::is.positive.definite(fit$hess)) {
-          convergence <- T
-      }
+    if (matrixcalc::is.positive.definite(fit$hess)) {
+      convergence <- T
+    }
   }
 
   while ((cons < consecutive) & (!convergence)) {
@@ -46,7 +46,7 @@ fit_optimx <- function(objective, start, max_runs = 5L, consecutive = 0L, sigma 
     }
 
     if (verbose) {
-        cat(sprintf("iteration = %d // cons = %d // obj = %0.3f // convergence = %s\n", it, cons, new_fit$value, convergence))
+      cat(sprintf("iteration = %d // cons = %d // obj = %0.3f // convergence = %s\n", it, cons, new_fit$value, convergence))
     }
 
     it <- it + 1

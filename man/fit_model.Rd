@@ -5,7 +5,7 @@
 \title{fit_model}
 \usage{
 fit_model(objective, start = NULL, method = "Nelder-Mead", aic = T,
-  bic = F, n_obs = NULL, ...)
+  bic = F, n_obs = NULL, as_data_frame = F, ...)
 }
 \arguments{
 \item{objective}{function; the objective function to minimize}
