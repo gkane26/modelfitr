@@ -1,10 +1,10 @@
-#' fit_optimx
+#' opt
 #'
-#' runs optimization using optimx package
+#' nonlinear optimization: wrapper for optimx and nloptr
 #'
 #' @param objective function; the objective function to minimize
 #' @param start numeric vector; starting parameters
-#' @param method string; method to use. see optimx for options
+#' @param package string; package to use, see Details. Default = "optimx"
 #' @param failcode integer vector; convergence code from optimizer to be considered failure
 #' @param max_runs integer; maximum number of optimx runs
 #' @param conescutive integer; stop after this number of consecutive runs without improvement
@@ -13,15 +13,23 @@
 #' @param verbose logical; if TRUE, print result summary after each iteration
 #' @param ... further arguments passed to run_optimx, optimx, and objective
 #'
+#' @details Package options = "optimx", "nloptr"
 #' @export
-fit_optimx <- function(objective, start, method = "nmkb", failcode = c(9999), max_runs = 5L, consecutive = 0L, sigma = .1, tol = 1e-5, verbose = T, ...) {
+opt <- function(objective, start, package = "optimx", failcode = NULL, max_runs = 5L, consecutive = 0L, sigma = .1, tol = 1e-5, verbose = T, ...) {
+  if (package == "optimx") {
+    fit_fn <- run_optimx
+  } else {
+    fit_fn <- run_nloptr
+  }
+
   par_names <- names(start)
   convergence <- F
   cons <- 0
   it <- 1
 
-  fit <- run_optimx(objective, start, ...)
+  fit <- fit_fn(objective, start, ...)
   start <- fit$pars
+
   if (!(fit$code %in% failcode)) {
     if (!is.null(fit$hess)) {
       if (matrixcalc::is.positive.definite(fit$hess)) {
@@ -30,14 +38,15 @@ fit_optimx <- function(objective, start, method = "nmkb", failcode = c(9999), ma
     }
   }
 
-  it <- it + 1
-
   if (verbose) {
     cat(sprintf("iteration = %d // obj = %0.3f // code = %d // convergence = %s\n", it, fit$value, fit$code, convergence))
   }
 
+
   while ((cons < consecutive) & (!convergence)) {
-    new_fit <- run_optimx(objective, start, ...)
+    it <- it + 1
+
+    new_fit <- fit_fn(objective, start, ...)
 
     if (!(new_fit$code) %in% failcode) {
       if (!is.null(new_fit$hess)) {
@@ -65,8 +74,6 @@ fit_optimx <- function(objective, start, method = "nmkb", failcode = c(9999), ma
     if (verbose) {
       cat(sprintf("iteration = %d // cons = %d // obj = %0.3f // code = %d // convergence = %s\n", it, cons, new_fit$value, new_fit$code, convergence))
     }
-
-    it <- it + 1
   }
 
   if ((verbose) & (it > 1)) {

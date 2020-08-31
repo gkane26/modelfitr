@@ -4,24 +4,30 @@
 \alias{fit_model}
 \title{fit_model}
 \usage{
-fit_model(objective, start = NULL, method = "Nelder-Mead", aic = T,
-  bic = F, n_obs = NULL, as_data_frame = F, ...)
+fit_model(objective, start = NULL, lower = NULL, upper = NULL,
+  package = "optimx", aic = F, bic = F, n_obs = NULL,
+  as_data_frame = F, ...)
 }
 \arguments{
 \item{objective}{function; the objective function to minimize}
 
 \item{start}{numeric vector; parameter vector}
 
-\item{method}{string; fitting method; by default, Nelder-Mead; see Details}
+\item{package}{string; package to use for optimization, see Details. Default = "optimx".}
 
-\item{aic}{logical; if TRUE, calculate Akaike Information Criterion}
+\item{aic}{logical; if TRUE, calculate Akaike Information Criterion. Default = FALSE}
 
-\item{bic}{logical; if TRUE, calculate Bayes Information Criterion}
+\item{bic}{logical; if TRUE, calculate Bayes Information Criterion. Default = FALSE}
 
 \item{n_obs}{integer; the number of observations (used to calculate BIC)}
 
-\item{...}{further arguments passed to fit_optimx, run_optimx, optimx, and objective}
+\item{...}{further arguments passed to fitting method  and objective function and objective function}
+
+\item{method}{string; fitting method. Default = Nelder-Mead}
 }
 \description{
 run optimization algorithm on given objective function
+}
+\details{
+Package options = "optimx", "nloptr", "GenSA"
 }
