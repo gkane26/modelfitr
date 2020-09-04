@@ -5,18 +5,18 @@
 \title{run_nloptr}
 \usage{
 run_nloptr(objective, start, lower = NULL, upper = NULL,
-  algorithm = "neldermead", opts = list(), hessian = T, ...)
+  hessian = FALSE, method = "neldermead", control = list(), ...)
 }
 \arguments{
 \item{objective}{function; the objective function to minimize}
 
 \item{start}{numeric vector; starting parameters}
 
-\item{algorithm}{string; method to use. See details. Default = "neldermead"}
-
-\item{opts}{list; list of options. See nloptr::nloptr.print.options() for details.}
-
 \item{hessian}{logical; if TRUE, find the hessian at the optimum. Default = T}
+
+\item{method}{string; method to use. See details. Default = "neldermead"}
+
+\item{control}{list; list of options. See nloptr::nloptr.print.options() for details.}
 
 \item{...}{further arguments passed to nloptr method and objective}
 }
@@ -24,7 +24,7 @@ run_nloptr(objective, start, lower = NULL, upper = NULL,
 runs optimization using nloptr package
 }
 \details{
-Algorithm options =
+method options =
 "bobyqa",
 "ccsaq",
 "cobyla",

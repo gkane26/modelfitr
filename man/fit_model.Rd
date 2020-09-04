@@ -5,29 +5,55 @@
 \title{fit_model}
 \usage{
 fit_model(objective, start = NULL, lower = NULL, upper = NULL,
-  package = "optimx", aic = F, bic = F, n_obs = NULL,
-  as_data_frame = F, ...)
+  hessian = FALSE, package = "optimx", method = NULL,
+  restart = FALSE, consecutive = 0L, max_runs = Inf, sigma = 0.1,
+  n_pop = 50, opt_args = list(), obj_args = list(), aic = F,
+  bic = F, n_obs = NULL, return_df = F, return_all = F, ...)
 }
 \arguments{
 \item{objective}{function; the objective function to minimize}
 
-\item{start}{numeric vector; parameter vector}
+\item{start}{numeric vector; parameter vector. Default = NULL}
 
-\item{package}{string; package to use for optimization, see Details. Default = "optimx".}
+\item{lower}{numeric vector; lower bounds on parameters. Default = NULL}
+
+\item{upper}{numeric vector; upper bounds on parameters. Default = NULL}
+
+\item{hessian}{logical; if TRUE, calculate hessian at final solution; Default = FALSE.}
+
+\item{package}{string; package to use for optimization, see Details. Default = "optimx"}
+
+\item{method}{string; method to use from the package (if applicable, see Details for options). Default = NULL (use method default for package)}
+
+\item{restart}{logical; if TRUE, restart optimization until no more improvement. Only applicable for package = optimx, nloptr, & pracma. Default = FALSE}
+
+\item{max_runs}{integer; maximum number of optimx runs. Only applicable for package = optimx, nloptr, & pracma. Default = Inf}
+
+\item{sigma}{numeric vector; standard deviation to perturb starting values. For packages = optimx, nloptr, pracma, if consecutive > 0, will perturb start values before each successive run. For packages = DEoptim, RcppDE, GA, used to create random initial population (with specified starting values). Default = 0.1}
+
+\item{n_pop}{numeric vector; size of population. Only applicable for package = RcppDE, DEoptim, GA. Default = 50, recommended to be 10 * n parameters.}
+
+\item{opt_args}{list; further arguments passed to fitting method}
+
+\item{obj_args}{list; further arguments passed to objective function}
 
 \item{aic}{logical; if TRUE, calculate Akaike Information Criterion. Default = FALSE}
 
 \item{bic}{logical; if TRUE, calculate Bayes Information Criterion. Default = FALSE}
 
-\item{n_obs}{integer; the number of observations (used to calculate BIC)}
+\item{n_obs}{integer; the number of observations (used to calculate BIC). Default = NULL}
 
-\item{...}{further arguments passed to fitting method  and objective function and objective function}
+\item{return_df}{logical; if TRUE, return results as a data frame}
 
-\item{method}{string; fitting method. Default = Nelder-Mead}
+\item{return_all}{logical; if TRUE, return list of results from modelfitr AND results from the package used to fit the model}
+
+\item{...}{further arguments passed to objective function (similar to obj_args)}
+
+\item{conescutive}{integer; stop after this number of consecutive runs without improvement. Only applicable for package = optimx, nloptr, & pracma. Default = 0}
 }
 \description{
-run optimization algorithm on given objective function
+run optimization algorithms from a variety of packages
 }
 \details{
-Package options = "optimx", "nloptr", "GenSA"
+Package options = "optimx", "nloptr", "pracma", GenSA", "rgenoud", "GA", "DEoptim", "RcppDE"
 }

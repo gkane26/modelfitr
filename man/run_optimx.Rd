@@ -4,17 +4,21 @@
 \alias{run_optimx}
 \title{run_optimx}
 \usage{
-run_optimx(objective, start, method = "nmkb", hessian = T,
-  control = list(), failcode = 9999, ...)
+run_optimx(objective, start, lower = -Inf, upper = Inf,
+  hessian = FALSE, method = "nmkb", control = list(), ...)
 }
 \arguments{
 \item{objective}{function; the objective function to minimize}
 
 \item{start}{numeric vector; starting parameters}
 
-\item{method}{string; method to use. See optimx for details}
+\item{lower}{numeric vector; lower bounds for parameters}
+
+\item{upper}{numeric vector; upper bounds for parameters}
 
 \item{hessian}{logical; if TRUE, find the hessian at the optimum}
+
+\item{method}{string; method to use. See optimx for details}
 
 \item{control}{list; a list of control parameters, see optimx for details}
 

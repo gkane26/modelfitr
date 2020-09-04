@@ -4,13 +4,13 @@
 #'
 #' @param objective function; the objective function to minimize
 #' @param start numeric vector; starting parameters
-#' @param algorithm string; method to use. See details. Default = "neldermead"
-#' @param opts list; list of options. See nloptr::nloptr.print.options() for details.
+#' @param method string; method to use. See details. Default = "neldermead"
+#' @param control list; list of options. See nloptr::nloptr.print.options() for details.
 #' @param hessian logical; if TRUE, find the hessian at the optimum. Default = T
 #' @param ... further arguments passed to nloptr method and objective
 #'
 #' @details
-#' Algorithm options =
+#' method options =
 #' "bobyqa",
 #' "ccsaq",
 #' "cobyla",
@@ -28,7 +28,14 @@
 #' "varmetric"
 #'
 #' @export
-run_nloptr <- function(objective, start, lower = NULL, upper = NULL, algorithm = "neldermead", opts = list(), hessian = T, ...) {
+run_nloptr <- function(objective,
+                       start,
+                       lower = NULL,
+                       upper = NULL,
+                       hessian = FALSE,
+                       method = "neldermead",
+                       control = list(),
+                       ...) {
   check_nloptr <- require(nloptr)
   if (!check_nloptr) {
     stop("nloptr package must be installed to use package = \"nloptr\" in modelfitr")
@@ -59,39 +66,33 @@ run_nloptr <- function(objective, start, lower = NULL, upper = NULL, algorithm =
   ncol = 2, byrow = T
   )
 
-  if (substring(algorithm, 1, 5) != "NLOPT") {
-    if (!(algorithm %in% all_algos[, 1])) {
-      stop(paste("nloptr algorithm =", algorithm, "is not supported"))
+  if (substring(method, 1, 5) != "NLOPT") {
+    if (!(method %in% all_algos[, 1])) {
+      stop(paste("nloptr method =", method, "is not supported"))
     } else {
-      algo_index <- which(all_algos[, 1] == algorithm)
-      algorithm <- all_algos[algo_index, 2]
+      algo_index <- which(all_algos[, 1] == method)
+      method <- all_algos[algo_index, 2]
     }
   }
 
-  opts <- c(algorithm = algorithm, opts)
+  control <- c(algorithm = method, control)
 
-  if ("lower" %in% names(list(...))) {
-    list(...)$lb <- list(...)$lower
-    list(...)$lower <- NULL
-  }
-  if ("upper" %in% names(list(...))) {
-    list(...)$ub <- list(...)$upper
-    list(...)$upper <- NULL
-  }
+  fit <- nloptr(start, objective, lb = lower, ub = upper, opts = control, ...)
 
-  fit <- nloptr(start, objective, opts = opts, ...)
+  fit_pars <- fit$solution
+  names(fit_pars) <- names(start)
+  fit_val <- fit$objective
+  fit_hess <- ifelse(hessian, numDeriv::hessian(objective, fit_pars, ...), NA)
+  fit_conv <- ifelse(is.na(fit_hess), NA, matrixcalc::is.positive.definite(fit_hess))
+  fit_code <- fit$status
 
-  fit$pars <- fit$solution
-  fit$solution <- NULL
-  fit$value <- fit$objective
-  fit$objective <- NULL
-  if (hessian) {
-    fit$hess <- numDeriv::hessian(objective, fit$pars, ...)
-  } else {
-    fit$hess <- NULL
-  }
-  fit$code <- fit$status
-  fit$status <- NULL
+  res <- list(
+    pars = fit_pars,
+    value = fit_val,
+    hess = fit_hess,
+    convergence = fit_conv,
+    code = fit_code
+  )
 
-  return(fit)
+  return(list(res = res, fit = fit))
 }
