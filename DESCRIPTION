@@ -17,4 +17,6 @@ Imports:
     numDeriv,
     nloptr,
     rgenoud,
-    pracma
+    pracma,
+    RcppDE,
+    GA

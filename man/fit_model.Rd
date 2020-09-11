@@ -55,6 +55,7 @@ fit_model(objective, start = NULL, lower = NULL, upper = NULL,
 \value{
 if return_df = FALSE and return_all = FALSE (default),
 returns a list containing the following fields:
+
 \item{pars}{parameter values}
 \item{value}{the value of the objective function at the solution}
 \item{hess}{if hessian=TRUE, the hessian matrix at the solution, otherwise NA}
@@ -77,7 +78,7 @@ if return_df = TRUE, returns a data frame instead of a list. This data frame has
 
 if return_all = TRUE, returns a list containing:
 \itemize{
-\item the list of data frame as described above
+\item the list or data frame as described above
 \item the direct output from the optimization method
 }
 }
