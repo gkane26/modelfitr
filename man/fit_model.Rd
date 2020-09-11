@@ -7,8 +7,9 @@
 fit_model(objective, start = NULL, lower = NULL, upper = NULL,
   hessian = FALSE, package = "optimx", method = NULL,
   restart = FALSE, consecutive = 0L, max_runs = Inf, sigma = 0.1,
-  n_pop = 50, opt_args = list(), obj_args = list(), aic = F,
-  bic = F, n_obs = NULL, return_df = F, return_all = F, ...)
+  n_pop = 50, opt_args = list(), obj_args = list(), aic = FALSE,
+  bic = FALSE, n_obs = NULL, return_df = FALSE, return_all = FALSE,
+  ...)
 }
 \arguments{
 \item{objective}{function; the objective function to minimize}
@@ -51,9 +52,43 @@ fit_model(objective, start = NULL, lower = NULL, upper = NULL,
 
 \item{conescutive}{integer; stop after this number of consecutive runs without improvement. Only applicable for package = optimx, nloptr, & pracma. Default = 0}
 }
+\value{
+if return_df = FALSE and return_all = FALSE (default),
+returns a list containing the following fields:
+\item{pars}{parameter values}
+\item{value}{the value of the objective function at the solution}
+\item{hess}{if hessian=TRUE, the hessian matrix at the solution, otherwise NA}
+\item{convergence}{if hessian=TRUE, convergence = TRUE if the hessian is positive definite, otherwise FALSE. if hessian = FALSE, convergence = NA}
+\item{code}{the message or code returned by the optimization method if applicable, otherwise NA}
+
+if aic = TRUE and/or bic = TRUE, list also contains:
+\item{aic}{the aic for the model}
+\item{bic}{the bic for the model}
+
+if return_df = TRUE, returns a data frame instead of a list. This data frame has 1 row and columns for:
+\itemize{
+\item each parameter
+\item value
+\item covergence
+\item code
+\item aic - if applicable
+\item bic - if applicable
+}
+
+if return_all = TRUE, returns a list containing:
+\itemize{
+\item the list of data frame as described above
+\item the direct output from the optimization method
+}
+}
 \description{
 run optimization algorithms from a variety of packages
 }
 \details{
-Package options = "optimx", "nloptr", "pracma", GenSA", "rgenoud", "GA", "DEoptim", "RcppDE"
+Still under developement... \cr
+
+Package options = "optimx", "nloptr", "pracma", GenSA", "rgenoud", "GA", "DEoptim", "RcppDE". \cr
+Package = "optimx", "nloptr", "pracma" should work. \cr
+Others are implemented but no guarantees. \cr
+Further documentation coming soon. \cr
 }
