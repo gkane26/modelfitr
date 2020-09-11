@@ -12,4 +12,11 @@ LazyData: true
 RoxygenNote: 6.1.1
 Imports: 
     optimx,
-    matrixcalc
+    GenSA,
+    matrixcalc,
+    numDeriv,
+    nloptr,
+    rgenoud,
+    pracma,
+    RcppDE,
+    GA
