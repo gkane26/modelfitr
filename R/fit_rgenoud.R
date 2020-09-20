@@ -50,8 +50,13 @@ fit_rgenoud <- function(objective,
 
   fit_pars <- fit$par
   fit_val <- fit$value
-  fit_hess <- ifelse(hessian, numDeriv::hessian(objective, fit_pars, ...), NA)
-  fit_conv <- ifelse(is.na(fit_hess), NA, matrixcalc::is.positive.definite(fit_hess))
+  if (hessian) {
+    fit_hess <- numDeriv::hessian(objective, fit_pars, ...)
+    fit_conv <- matrixcalc::is.positive.definite(fit_hess)
+  } else {
+    fit_hess <- NA
+    fit_conv <- NA
+  }
   fit_code <- NA
 
   res <- list(

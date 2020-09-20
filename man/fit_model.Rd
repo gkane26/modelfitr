@@ -4,12 +4,28 @@
 \alias{fit_model}
 \title{fit_model}
 \usage{
-fit_model(objective, start = NULL, lower = NULL, upper = NULL,
-  hessian = FALSE, package = "optimx", method = NULL,
-  restart = FALSE, consecutive = 0L, max_runs = Inf, sigma = 0.1,
-  n_pop = 50, opt_args = list(), obj_args = list(), aic = FALSE,
-  bic = FALSE, n_obs = NULL, return_df = FALSE, return_all = FALSE,
-  ...)
+fit_model(
+  objective,
+  start = NULL,
+  lower = NULL,
+  upper = NULL,
+  hessian = FALSE,
+  package = "optimx",
+  method = NULL,
+  restart = FALSE,
+  consecutive = 0L,
+  max_runs = Inf,
+  sigma = 0.1,
+  n_pop = 50,
+  opt_args = list(),
+  obj_args = list(),
+  aic = FALSE,
+  bic = FALSE,
+  n_obs = NULL,
+  return_df = FALSE,
+  return_all = FALSE,
+  ...
+)
 }
 \arguments{
 \item{objective}{function; the objective function to minimize}

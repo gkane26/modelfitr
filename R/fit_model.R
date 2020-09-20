@@ -172,8 +172,8 @@ fit_model <- function(objective,
 
   if (return_df) {
     fit_data <- data.frame(as.list(fit$res$pars), value = fit$res$value, convergence = fit$res$convergence)
-    if ("aic" %in% names(fit)) fit_data$aic <- fit$res$aic
-    if ("bic" %in% names(fit)) fit_data$bic <- fit$res$bic
+    if ("aic" %in% names(fit$res)) fit_data$aic <- fit$res$aic
+    if ("bic" %in% names(fit$res)) fit_data$bic <- fit$res$bic
     fit$res <- fit_data
   }
 

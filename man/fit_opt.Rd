@@ -4,10 +4,24 @@
 \alias{fit_opt}
 \title{fit_opt}
 \usage{
-fit_opt(objective, start, lower = NULL, upper = NULL,
-  hessian = FALSE, package = "optimx", method = NULL, restart = F,
-  consecutive = 0L, max_runs = Inf, sigma = 0.1, tol = 1e-05,
-  verbose = T, opt_args = list(), obj_args = list(), ...)
+fit_opt(
+  objective,
+  start,
+  lower = NULL,
+  upper = NULL,
+  hessian = FALSE,
+  package = "optimx",
+  method = NULL,
+  restart = F,
+  consecutive = 0L,
+  max_runs = Inf,
+  sigma = 0.1,
+  tol = 1e-05,
+  verbose = T,
+  opt_args = list(),
+  obj_args = list(),
+  ...
+)
 }
 \arguments{
 \item{objective}{function; the objective function to minimize}

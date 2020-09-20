@@ -156,7 +156,7 @@ fit_opt <- function(objective,
   ))
 
   if (verbose) {
-    cat(sprintf("START :: obj = %0.3f\n", target))
+    cat(sprintf("\nSTART :: obj = %0.3f\n", target))
   }
 
   fit <- do.call(fit_fn, c(
@@ -193,7 +193,6 @@ fit_opt <- function(objective,
       list(...)
     ))
     res <- fit$res
-    convergence <- ifelse(is.na(res$convergence), FALSE, res$convergence)
 
     if (verbose) {
       cat(sprintf("%d :: obj = %0.3f // code = %d // convergence = %s\n", it, res$value, res$code, res$convergence))
@@ -206,14 +205,4 @@ fit_opt <- function(objective,
 
 
   return(fit)
-}
-
-.check_convergence <- function(res) {
-  if (!is.null(res$hess)) {
-    if (matrixcalc::is.positive.definite(res$hess)) {
-      return(TRUE)
-    }
-  }
-
-  return(FALSE)
 }

@@ -4,9 +4,18 @@
 \alias{fit_de}
 \title{fit_de}
 \usage{
-fit_de(objective, start = NULL, lower = NULL, upper = NULL,
-  hessian = FALSE, sigma = 0.1, n_pop = 50L, opt_args = list(),
-  obj_args = list(), ...)
+fit_de(
+  objective,
+  start = NULL,
+  lower = NULL,
+  upper = NULL,
+  hessian = FALSE,
+  sigma = 0.1,
+  n_pop = 50L,
+  opt_args = list(),
+  obj_args = list(),
+  ...
+)
 }
 \arguments{
 \item{objective}{function; the objective function to minimize}
