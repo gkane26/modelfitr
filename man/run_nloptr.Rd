@@ -4,8 +4,16 @@
 \alias{run_nloptr}
 \title{run_nloptr}
 \usage{
-run_nloptr(objective, start, lower = NULL, upper = NULL,
-  hessian = FALSE, method = "neldermead", control = list(), ...)
+run_nloptr(
+  objective,
+  start,
+  lower = NULL,
+  upper = NULL,
+  hessian = FALSE,
+  method = "neldermead",
+  control = list(),
+  ...
+)
 }
 \arguments{
 \item{objective}{function; the objective function to minimize}

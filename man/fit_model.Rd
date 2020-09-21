@@ -4,12 +4,29 @@
 \alias{fit_model}
 \title{fit_model}
 \usage{
-fit_model(objective, start = NULL, lower = NULL, upper = NULL,
-  hessian = FALSE, package = "optimx", method = NULL,
-  restart = FALSE, consecutive = 0L, max_runs = Inf, sigma = 0.1,
-  n_pop = 50, opt_args = list(), obj_args = list(), aic = FALSE,
-  bic = FALSE, n_obs = NULL, return_df = FALSE, return_all = FALSE,
-  ...)
+fit_model(
+  objective,
+  start = NULL,
+  lower = NULL,
+  upper = NULL,
+  hessian = FALSE,
+  package = "optimx",
+  method = NULL,
+  restart = FALSE,
+  consecutive = 0L,
+  max_runs = Inf,
+  sigma = 0.1,
+  verbose = FALSE,
+  n_pop = 50,
+  opt_args = list(),
+  obj_args = list(),
+  aic = FALSE,
+  bic = FALSE,
+  n_obs = NULL,
+  return_df = FALSE,
+  return_all = FALSE,
+  ...
+)
 }
 \arguments{
 \item{objective}{function; the objective function to minimize}
@@ -31,6 +48,8 @@ fit_model(objective, start = NULL, lower = NULL, upper = NULL,
 \item{max_runs}{integer; maximum number of optimx runs. Only applicable for package = optimx, nloptr, & pracma. Default = Inf}
 
 \item{sigma}{numeric vector; standard deviation to perturb starting values. For packages = optimx, nloptr, pracma, if consecutive > 0, will perturb start values before each successive run. For packages = DEoptim, RcppDE, GA, used to create random initial population (with specified starting values). Default = 0.1}
+
+\item{verbose}{logical; if TRUE, print progress statements. Only applicable for packages = optimx, nloptrm, pracma. Default=FALSE}
 
 \item{n_pop}{numeric vector; size of population. Only applicable for package = RcppDE, DEoptim, GA. Default = 50, recommended to be 10 * n parameters.}
 

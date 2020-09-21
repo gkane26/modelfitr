@@ -4,8 +4,16 @@
 \alias{run_optimx}
 \title{run_optimx}
 \usage{
-run_optimx(objective, start, lower = -Inf, upper = Inf,
-  hessian = FALSE, method = "nmkb", control = list(), ...)
+run_optimx(
+  objective,
+  start,
+  lower = -Inf,
+  upper = Inf,
+  hessian = FALSE,
+  method = "nmkb",
+  control = list(),
+  ...
+)
 }
 \arguments{
 \item{objective}{function; the objective function to minimize}

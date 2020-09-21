@@ -4,9 +4,19 @@
 \alias{fit_ga}
 \title{fit_ga}
 \usage{
-fit_ga(objective, start = NULL, lower = NULL, upper = NULL,
-  hessian = T, sigma = 0.1, n_pop = 50L, minimize = T,
-  opt_args = list(), obj_args = list(), ...)
+fit_ga(
+  objective,
+  start = NULL,
+  lower = NULL,
+  upper = NULL,
+  hessian = T,
+  sigma = 0.1,
+  n_pop = 50L,
+  minimize = T,
+  opt_args = list(),
+  obj_args = list(),
+  ...
+)
 }
 \arguments{
 \item{objective}{function; the objective function to minimize}

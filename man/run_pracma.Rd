@@ -4,8 +4,15 @@
 \alias{run_pracma}
 \title{run_pracma}
 \usage{
-run_pracma(objective, start, lower = NULL, upper = NULL,
-  hessian = FALSE, method = "fminsearch", ...)
+run_pracma(
+  objective,
+  start,
+  lower = NULL,
+  upper = NULL,
+  hessian = FALSE,
+  method = "fminsearch",
+  ...
+)
 }
 \arguments{
 \item{objective}{function; the objective function to minimize}

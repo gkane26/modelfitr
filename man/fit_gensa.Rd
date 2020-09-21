@@ -4,8 +4,16 @@
 \alias{fit_gensa}
 \title{fit_gensa}
 \usage{
-fit_gensa(objective, start, lower, upper, hessian = FALSE,
-  opt_args = list(), obj_args = list(), ...)
+fit_gensa(
+  objective,
+  start,
+  lower,
+  upper,
+  hessian = FALSE,
+  opt_args = list(),
+  obj_args = list(),
+  ...
+)
 }
 \arguments{
 \item{objective}{function; the objective function to minimize}
