@@ -13,6 +13,7 @@
 #' @param conescutive integer; stop after this number of consecutive runs without improvement. Only applicable for package = optimx, nloptr, & pracma. Default = 0
 #' @param max_runs integer; maximum number of optimx runs. Only applicable for package = optimx, nloptr, & pracma. Default = Inf
 #' @param sigma numeric vector; standard deviation to perturb starting values. For packages = optimx, nloptr, pracma, if consecutive > 0, will perturb start values before each successive run. For packages = DEoptim, RcppDE, GA, used to create random initial population (with specified starting values). Default = 0.1
+#' @param verbose logical; if TRUE, print progress statements. Only applicable for packages = optimx, nloptrm, pracma. Default=FALSE
 #' @param n_pop numeric vector; size of population. Only applicable for package = RcppDE, DEoptim, GA. Default = 50, recommended to be 10 * n parameters.
 #' @param opt_args list; further arguments passed to fitting method
 #' @param obj_args list; further arguments passed to objective function
@@ -75,6 +76,7 @@ fit_model <- function(objective,
                       consecutive = 0L,
                       max_runs = Inf,
                       sigma = 0.1,
+                      verbose = FALSE,
                       n_pop = 50,
                       opt_args = list(),
                       obj_args = list(),
@@ -101,6 +103,7 @@ fit_model <- function(objective,
       consecutive = consecutive,
       max_runs = max_runs,
       sigma = sigma,
+      verbose = verbose,
       opt_args = opt_args,
       obj_args = obj_args,
       ...
@@ -161,12 +164,12 @@ fit_model <- function(objective,
     stop(paste("package =", package, "is not implemented!"))
   }
 
-  if (aic) fit$res$aic <- 2 * length(fit$res$pars) - 2 * log(fit$res$value)
+  if (aic) fit$res$aic <- 2 * length(fit$res$pars) + 2 * log(fit$res$value)
   if (bic) {
     if (is.null(n_obs)) {
       warning("Not calculating BIC! Must provide number of observations to calculate BIC.")
     } else {
-      fit$res$bic <- length(fit$res$pars) * log(n_obs) - 2 * log(fit$res$value)
+      fit$res$bic <- length(fit$res$pars) * log(n_obs) + 2 * log(fit$res$value)
     }
   }
 

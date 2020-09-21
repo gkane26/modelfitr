@@ -14,7 +14,7 @@
 #' @param max_runs integer; maximum number of optimx runs. Default = Inf
 #' @param sigma numeric; standard deviation for random perturbation of starting values
 #' @param tolerance numeric; new fit must change objective by 'tolerance' to be considered an improvement
-#' @param verbose logical; if TRUE, print result summary after each iteration
+#' @param verbose logical; if TRUE, print result summary after each iteration.Default=FALSE
 #' @param opt_args list; list of arguments to be passed to optimx
 #' @param obj_args list; list of arguments to be passed to objective function
 #' @param ... further arguments objective
@@ -28,12 +28,12 @@ fit_opt <- function(objective,
                     hessian = FALSE,
                     package = "optimx",
                     method = NULL,
-                    restart = F,
+                    restart = FALSE,
                     consecutive = 0L,
                     max_runs = Inf,
                     sigma = .1,
                     tol = 1e-5,
-                    verbose = T,
+                    verbose = FALSE,
                     opt_args = list(),
                     obj_args = list(),
                     ...) {
@@ -65,7 +65,7 @@ fit_opt <- function(objective,
 
   it <- 1
 
-  if (verbose & (consecutive > 0)) {
+  if (verbose) {
     cat(sprintf("\niteration = %d\n", it))
   }
 
@@ -143,8 +143,8 @@ fit_opt <- function(objective,
                        upper = NULL,
                        hessian = FALSE,
                        method = NULL,
-                       restart = F,
-                       verbose = T,
+                       restart = FALSE,
+                       verbose = FALSE,
                        opt_args = list(),
                        obj_args = list(),
                        ...) {
@@ -156,7 +156,7 @@ fit_opt <- function(objective,
   ))
 
   if (verbose) {
-    cat(sprintf("\nSTART :: obj = %0.3f\n", target))
+    cat(sprintf("START :: obj = %0.3f\n", target))
   }
 
   fit <- do.call(fit_fn, c(

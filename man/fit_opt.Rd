@@ -12,12 +12,12 @@ fit_opt(
   hessian = FALSE,
   package = "optimx",
   method = NULL,
-  restart = F,
+  restart = FALSE,
   consecutive = 0L,
   max_runs = Inf,
   sigma = 0.1,
   tol = 1e-05,
-  verbose = T,
+  verbose = FALSE,
   opt_args = list(),
   obj_args = list(),
   ...
@@ -44,7 +44,7 @@ fit_opt(
 
 \item{sigma}{numeric; standard deviation for random perturbation of starting values}
 
-\item{verbose}{logical; if TRUE, print result summary after each iteration}
+\item{verbose}{logical; if TRUE, print result summary after each iteration.Default=FALSE}
 
 \item{opt_args}{list; list of arguments to be passed to optimx}
 
