@@ -49,6 +49,7 @@ fit_rgenoud <- function(objective,
   ))
 
   fit_pars <- fit$par
+  names(fit_pars) <- names(start)
   fit_val <- fit$value
   if (hessian) {
     fit_hess <- numDeriv::hessian(objective, fit_pars, ...)

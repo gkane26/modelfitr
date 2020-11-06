@@ -56,6 +56,7 @@ fit_ga <- function(objective,
   ))
 
   fit_pars <- fit@solution
+  names(fit_pars) <- names(start)
   fit_val <- ifelse(minimize, -fit@fitnessValue, fit@fitnessValue)
   if (hessian) {
     fit_hess <- numDeriv::hessian(objective, fit_pars, ...)

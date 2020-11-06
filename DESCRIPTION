@@ -15,8 +15,9 @@ Imports:
     GenSA,
     matrixcalc,
     numDeriv,
-    nloptr,
     rgenoud,
     pracma,
     RcppDE,
     GA
+Suggests:
+    nloptr
