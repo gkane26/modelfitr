@@ -107,8 +107,7 @@ run optimization algorithms from a variety of packages
 \details{
 Still under developement... \cr
 
-Package options = "optimx", "nloptr", "pracma", GenSA", "rgenoud", "GA", "DEoptim", "RcppDE". \cr
-Package = "optimx", "nloptr", "pracma" should work. \cr
+Package options = "optimx", "nloptr", "pracma", "GenSA", "rgenoud", "GA", "DEoptim", "RcppDE". \cr
 Others are implemented but no guarantees. \cr
 Further documentation coming soon. \cr
 }

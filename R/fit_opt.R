@@ -19,7 +19,7 @@
 #' @param obj_args list; list of arguments to be passed to objective function
 #' @param ... further arguments objective
 #'
-#' @details Package options = "optimx", "nloptr"
+#' @details Package options = "optimx", "optim", "nloptr", "pracma"
 #' @export
 fit_opt <- function(objective,
                     start,
@@ -37,7 +37,25 @@ fit_opt <- function(objective,
                     opt_args = list(),
                     obj_args = list(),
                     ...) {
-  if (package == "optimx") {
+
+
+  if (length(start) == 1) {
+    warn_1 = (package != "optim")
+    if (!is.null(method)) {
+      warn_1 = (method != "Brent")
+    }
+
+    if (warn_1) {
+      warning("For single parameter optimization, using package = \"optim\" & method = \"Brent\".")
+    }
+
+    package = "optim"
+    method = "Brent"
+  }
+
+  if (package == "optim") {
+    fit_fn <- run_optim
+  } else if (package == "optimx") {
     fit_fn <- run_optimx
   } else if (package == "nloptr") {
     fit_fn <- run_nloptr
@@ -48,7 +66,9 @@ fit_opt <- function(objective,
   }
 
   if (is.null(method)) {
-    if (package == "optimx") {
+    if (package == "optim") {
+      method = "Nelder-Mead"
+    } else if (package == "optimx") {
       method <- "nmkb"
     } else if (package == "nloptr") {
       method <- "neldermead"

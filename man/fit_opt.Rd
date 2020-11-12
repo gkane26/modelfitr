@@ -60,5 +60,5 @@ fit_opt(
 nonlinear optimization: wrapper for optimx and nloptr
 }
 \details{
-Package options = "optimx", "nloptr"
+Package options = "optimx", "optim", "nloptr", "pracma"
 }
