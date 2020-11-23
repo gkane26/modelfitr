@@ -62,6 +62,7 @@ fit_de <- function(objective,
   ))
 
   fit_pars <- fit$optim$bestmem
+  names(fit_pars) <- names(start)
   fit_val <- fit$optim$bestval
   if (hessian) {
     fit_hess <- numDeriv::hessian(objective, fit_pars, ...)

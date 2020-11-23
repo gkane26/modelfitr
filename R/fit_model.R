@@ -27,8 +27,7 @@
 #' @details
 #' Still under developement... \cr
 #'
-#' Package options = "optimx", "nloptr", "pracma", GenSA", "rgenoud", "GA", "DEoptim", "RcppDE". \cr
-#' Package = "optimx", "nloptr", "pracma" should work. \cr
+#' Package options = "optimx", "nloptr", "pracma", "GenSA", "rgenoud", "GA", "DEoptim", "RcppDE". \cr
 #' Others are implemented but no guarantees. \cr
 #' Further documentation coming soon. \cr
 #'
@@ -86,7 +85,12 @@ fit_model <- function(objective,
                       return_df = FALSE,
                       return_all = FALSE,
                       ...) {
-  if (package %in% c("optimx", "nloptr", "pracma")) {
+
+  if (is.na(package) | is.null(package)) {
+    package = "optim"
+  }
+
+  if (package %in% c("optim", "optimx", "nloptr", "pracma")) {
     if (is.null(start)) {
       stop(paste("Must provide starting values with package =", package))
     }
