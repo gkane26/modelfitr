@@ -55,7 +55,7 @@ fit_ga <- function(objective,
     list(...)
   ))
 
-  fit_pars <- fit@solution
+  fit_pars <- as.numeric(fit@solution)
   names(fit_pars) <- names(start)
   fit_val <- ifelse(minimize, -fit@fitnessValue, fit@fitnessValue)
   if (hessian) {
