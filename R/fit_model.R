@@ -168,12 +168,12 @@ fit_model <- function(objective,
     stop(paste("package =", package, "is not implemented!"))
   }
 
-  if (aic) fit$res$aic <- 2 * length(fit$res$pars) + 2 * log(fit$res$value)
+  if (aic) fit$res$aic <- 2 * length(fit$res$pars) + 2 * fit$res$value
   if (bic) {
     if (is.null(n_obs)) {
       warning("Not calculating BIC! Must provide number of observations to calculate BIC.")
     } else {
-      fit$res$bic <- length(fit$res$pars) * log(n_obs) + 2 * log(fit$res$value)
+      fit$res$bic <- length(fit$res$pars) * log(n_obs) + 2 * fit$res$value
     }
   }
 
