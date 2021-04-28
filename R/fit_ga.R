@@ -42,7 +42,7 @@ fit_ga <- function(objective,
   if (!("suggestions" %in% names(opt_args))) {
     if (!(is.null(start))) {
       opt_args$popSize <- n_pop
-      opt_args$suggestions <- sapply(start, function(x) rnorm(n_pop, x, sigma * abs(x)))
+      opt_args$suggestions <- sapply(start, function(x) rnorm(n_pop, x, ifelse(x == 0, sigma, sigma * abs(x))))
     }
   }
 

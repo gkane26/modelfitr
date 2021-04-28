@@ -43,12 +43,12 @@ fit_de <- function(objective,
       if (!("initialpop" %in% names(opt_args$control))) {
         n_pop <- ifelse("NP" %in% names(opt_args$control), opt_args$control$NP, n_pop)
         opt_args$control$NP <- n_pop
-        opt_args$control$initialpop <- sapply(start, function(x) rnorm(n_pop, x, sigma * abs(x)))
+        opt_args$control$initialpop <- sapply(start, function(x) rnorm(n_pop, x, ifelse(x == 0, sigma, sigma * abs(x))))
       }
     } else {
       opt_args$control <- list()
       opt_args$control$NP <- n_pop
-      opt_args$control$initialpop <- sapply(start, function(x) rnorm(n_pop, x, sigma * abs(x)))
+      opt_args$control$initialpop <- sapply(start, function(x) rnorm(n_pop, x, ifelse(x == 0, sigma, sigma * abs(x))))
     }
   }
 

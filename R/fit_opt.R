@@ -117,7 +117,7 @@ fit_opt <- function(objective,
       }
 
       # randomize starting values
-      start <- rnorm(length(fit$res$pars), fit$res$pars, sigma[s] * abs(fit$res$pars))
+      start <- rnorm(length(fit$res$pars), fit$res$pars, ifelse(fit$res$pars == 0, sigma[s], sigma[s] * abs(fit$res$pars)))
       names(start) <- names(fit$res$pars)
 
       # refit model
