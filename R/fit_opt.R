@@ -100,6 +100,7 @@ fit_opt <- function(objective,
     verbose = verbose,
     opt_args = opt_args,
     obj_args = obj_args,
+    tol=tol,
     ...
   )
   convergence <- ifelse(is.na(fit$res$convergence), FALSE, fit$res$convergence)
@@ -132,6 +133,7 @@ fit_opt <- function(objective,
         verbose = verbose,
         opt_args = opt_args,
         obj_args = obj_args,
+        tol=tol,
         ...
       )
       convergence <- ifelse(is.na(new_fit$res$convergence), FALSE, new_fit$res$convergence)
@@ -167,6 +169,7 @@ fit_opt <- function(objective,
                        verbose = FALSE,
                        opt_args = list(),
                        obj_args = list(),
+                       tol=1e-5,
                        ...) {
   it <- 1
   target <- do.call(objective, c(
@@ -197,7 +200,7 @@ fit_opt <- function(objective,
     cat(sprintf("%d :: obj = %0.3f // code = %d // convergence = %s\n", it, res$value, res$code, res$convergence))
   }
 
-  while ((restart) & (!convergence) & (res$value < target)) {
+  while ((restart) & (!convergence) & (res$value < (target - tol))) {
     it <- it + 1
     target <- res$value
 
