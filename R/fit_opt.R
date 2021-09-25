@@ -215,11 +215,14 @@ fit_opt <- function(objective,
       obj_args,
       list(...)
     ))
-    res <- fit$res
-    convergence <- ifelse(is.na(res$convergence), FALSE, res$convergence)
+
+    if (fit$res$value < target) {
+      res <- fit$res
+      convergence <- ifelse(is.na(res$convergence), FALSE, res$convergence)
+    }
 
     if (verbose) {
-      cat(sprintf("%d :: obj = %0.3f // code = %d // convergence = %s\n", it, res$value, res$code, res$convergence))
+      cat(sprintf("%d :: obj = %0.3f // code = %d // convergence = %s\n", it, fit$res$value, fit$res$code, fit$res$convergence))
     }
   }
 
