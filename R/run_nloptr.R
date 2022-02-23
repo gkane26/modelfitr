@@ -75,14 +75,31 @@ run_nloptr <- function(objective,
     }
   }
 
-  control <- c(algorithm = method, control)
+  if (!"algorithm" %in% names(control))
+    control <- c(algorithm = method, control)
+
+  stop_args = c("stopval",
+                "ftol_rel",
+                "ftol_abs",
+                "xtol_rel",
+                "xtol_abs",
+                "maxeval",
+                "maxtime")
+  if (!any(sapply(stop_args, function(x) x %in% names(control))))
+    control <- c(control, xtol_rel = 1e-4)
 
   fit <- nloptr(start, objective, lb = lower, ub = upper, opts = control, ...)
 
   fit_pars <- fit$solution
   names(fit_pars) <- names(start)
   fit_val <- fit$objective
-  fit_hess <- ifelse(hessian, numDeriv::hessian(objective, fit_pars, ...), NA)
+  if (hessian) {
+    fit_hess <- numDeriv::hessian(objective, fit_pars, ...)
+    fit_conv <- matrixcalc::is.positive.definite(fit_hess)
+  } else {
+    fit_hess <- NA
+    fit_conv <- NA
+  }
   fit_conv <- ifelse(is.na(fit_hess), NA, matrixcalc::is.positive.definite(fit_hess))
   fit_code <- fit$status
 

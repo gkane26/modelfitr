@@ -48,7 +48,13 @@ run_pracma <- function(objective,
   fit_pars <- ifelse(method == "fminsearch", fit$xopt, fit$par)
   names(fit_pars) <- names(start)
   fit_val <- ifelse(method == "fminsearch", fit$min, fit$value)
-  fit_hess <- ifelse(hessian, numDeriv::hessian(objective, fit_pars, ...), NA)
+  if (hessian) {
+    fit_hess <- numDeriv::hessian(objective, fit_pars, ...)
+    fit_conv <- matrixcalc::is.positive.definite(fit_hess)
+  } else {
+    fit_hess <- NA
+    fit_conv <- NA
+  }
   fit_conv <- ifelse(is.na(fit_hess), NA, matrixcalc::is.positive.definite(fit_hess))
   fit_code <- fit$convergence
 
